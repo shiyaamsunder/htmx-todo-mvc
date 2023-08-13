@@ -1,0 +1,8 @@
+li(class= item.done? "completed": "" id="list" hx-target="this" data-id= item.id)
+  div(class="view")
+    input(class="toggle" hx-patch="/toggle/"+item.id hx-swap="outerHTML"
+      type="checkbox"
+      checked=item.done? "checked": false)
+    label= item.text 
+    button(class="destroy" hx-delete="/delete/"+item.id)
+  input(class="edit")

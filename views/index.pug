@@ -1,0 +1,30 @@
+html
+  head
+    title= title
+    script(src="https://unpkg.com/htmx.org@1.9.4")
+    link(href="/index.css" rel="stylesheet")
+  body
+    section(class="todoapp")
+      header(class="header")
+        h1 todos
+        form(hx-post="/add" hx-target="#todo-list" hx-swap="beforend" hx-on::after-request="this.reset()")
+          input(placeholder="What needs to be done?" autofocus=true class="new-todo" name="text")
+      section(class="main")
+        input(
+            id="toggle-all"
+            class="toggle-all"
+            type="checkbox"
+            data-todo="toggle-all")
+        label(for="toggle-all") Mark all as complete
+        ul(class="todo-list" id="todo-list" hx-trigger="load" hx-get="/todos")
+      footer(class="footer")
+        span(class="todo-count")
+          strong 0
+          |  items left
+        ul(class="filters")
+          li
+            a(class="selected" href="#" hx-get="/alltodos" hx-target="#todo-list") All
+          li
+            a(class="" href="#" hx-get="/activetodos" hx-target="#todo-list") Active
+          li
+            a(class="" href="#" hx-get="/completedtodos" hx-target="#todo-list" hx-select="#todo-list" id="completed") Completed
